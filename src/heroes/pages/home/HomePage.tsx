@@ -5,6 +5,7 @@ import { CustomJumbotron } from "@/components/custom/CustomJumbotron"
 import { HeroStats } from "@/heroes/components/HeroStats"
 import { HeroGrid } from "@/heroes/components/HeroGrid"
 import { CustomPagination } from "@/components/custom/CustomPagination"
+import { CustomBreadCrumbs } from "@/components/custom/CustomBreadCrumbs"
 
 import { Heart } from "lucide-react"
 
@@ -19,6 +20,8 @@ export const HomePage = () => {
                     title="Universo de SuperHéroes"
                     subtitle="Descubre, explora y administra super héroes y villanos"
                 />
+
+                <CustomBreadCrumbs currentPage="Super Héroes" />
 
                 {/* Stats Dashboard */}
                 <HeroStats />
