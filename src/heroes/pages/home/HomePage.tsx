@@ -27,11 +27,11 @@ export const HomePage = () => {
     }, [activeTab])
 
     const { data: heroesResponse } = useQuery({
-        queryKey: ['heroes'],
+        queryKey: ['heroes', { page, limit }],
         queryFn: () => getHeroesByPageAction(Number(page), Number(limit)),
         staleTime: 1000 * 60 * 5,
     })
-    console.log({ heroesResponse });
+    // console.log({ heroesResponse });
 
     return (
         <>
@@ -104,7 +104,7 @@ export const HomePage = () => {
 
 
                 {/* Pagination */}
-                <CustomPagination totalPages={6} />
+                <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
             </>
         </>
     )
