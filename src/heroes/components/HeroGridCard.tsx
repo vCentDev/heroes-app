@@ -1,15 +1,21 @@
+import { use } from "react"
+import type { Hero } from "../types/hero.interface"
+import { FavoriteHeroContext } from "../context/FavoriteHeroContext"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react"
-import type { Hero } from "../types/hero.interface"
 
 interface Propos {
     hero: Hero;
 }
 
 export const HeroGridCard = ({ hero }: Propos) => {
+    const { isFavorite, toggleFavorite } = use(FavoriteHeroContext)
+
     return (
         <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
             <div className="relative h-64">
@@ -31,8 +37,10 @@ export const HeroGridCard = ({ hero }: Propos) => {
                 <Badge className="absolute top-3 right-3 text-xs bg-blue-600 text-white">{hero.universe}</Badge>
 
                 {/* Favorite button */}
-                <Button size="sm" variant="ghost" className="absolute bottom-3 right-3 bg-white/90 hover:bg-white">
-                    <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+                <Button size="sm" variant="ghost" className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+                    onClick={() => toggleFavorite(hero)}
+                >
+                    <Heart className={`h-4 w-4 ${isFavorite(hero) ? 'fill-red-500 text-red-500' : 'fill-gray-500'} `} />
                 </Button>
 
                 {/* View details button */}
