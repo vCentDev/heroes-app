@@ -1,8 +1,9 @@
 import type { PropsWithChildren } from 'react';
 import { describe, expect, test, vi } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import { useHeroSummary } from './useHeroSummary';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { useHeroSummary } from './useHeroSummary';
 import { getSummaryAction } from '../actions/get-summary.action';
 import type { SummaryInformation } from '../types/summary-information.response';
 
@@ -27,13 +28,15 @@ const tanStackCustomProvider = () => {
 
 describe('useHeroSummary', () => {
     test('should return the initial state (isLoading)', () => {
+        mockGetSummaryAction.mockReturnValue(new Promise(() => { }))
+
         const { result } = renderHook(() => useHeroSummary(), {
             wrapper: tanStackCustomProvider()
         });
-        console.log(result);
 
         expect(result.current.isLoading).toBe(true);
         expect(result.current.isError).toBe(false);
+        expect(result.current.data).toBe(undefined);
         expect(result.current.data).toBeUndefined();
     });
 
@@ -84,6 +87,7 @@ describe('useHeroSummary', () => {
         expect(result.current.error).toBeDefined();
         expect(result.current.isLoading).toBe(false)
         expect(mockGetSummaryAction).toHaveBeenCalled();
+        expect(result.current.error?.message).toBe('Failed to fetch summary')
 
     })
 });

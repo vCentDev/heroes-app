@@ -36,6 +36,8 @@ describe('usePaginatedHero', () => {
     })
 
     test('should return the initial state (isLoading)', () => {
+        mockGetHeroesByPageAction.mockReturnValue(new Promise(() => { }))
+
         const { result } = renderHook(() => usePaginatedHero(1, 6), {
             wrapper: tanStackCustomProvider()
         })
